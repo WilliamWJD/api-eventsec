@@ -3,6 +3,7 @@ package com.eventstec.api.domain.event;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class EventMapper {
@@ -17,5 +18,19 @@ public class EventMapper {
         newEvent.setRemote(eventRequestDTO.remote());
 
         return newEvent;
+    }
+
+    public EventResponseDTO eventEntityForEventResponseDTO(final Event event){
+        return new EventResponseDTO(
+                event.getId(),
+                event.getTitle(),
+                event.getEventUrl(),
+                event.getDate(),
+                event.getDescription(),
+                event.getImageUrl(),
+                event.getRemote(),
+                "",
+                ""
+        );
     }
 }

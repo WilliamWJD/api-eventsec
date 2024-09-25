@@ -2,11 +2,14 @@ package com.eventstec.api.resources;
 
 import com.eventstec.api.domain.event.Event;
 import com.eventstec.api.domain.event.EventRequestDTO;
+import com.eventstec.api.domain.event.EventResponseDTO;
 import com.eventstec.api.services.EventService;
 import com.eventstec.api.services.impl.EventServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/event")
@@ -28,5 +31,11 @@ public class EventResource {
         EventRequestDTO eventRequestDTO = new EventRequestDTO(title, description, date, city, state, remote, eventUrl, image);
         Event newEvent = this.eventService.createEvent(eventRequestDTO);
         return ResponseEntity.ok(newEvent);
+    }
+    @GetMapping
+    public ResponseEntity<List<EventResponseDTO>> getEvents(@RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size){
+        List<EventResponseDTO> allEvents = this.eventService.getEvents(page, size);
+        return ResponseEntity.ok(allEvents);
     }
 }
