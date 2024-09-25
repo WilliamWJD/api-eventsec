@@ -23,7 +23,15 @@ public class EventSecUtils {
         return convFile;
     }
 
-    public static String  copyFile(File sourceFile, String destinationPath) throws IOException {
+    /**
+     * Copy file.
+     *
+     * @param sourceFile      the source file
+     * @param destinationPath the destination path
+     * @return absolute path destination
+     * @throws IOException the io exception
+     */
+    public static String copyFile(File sourceFile, String destinationPath) throws IOException {
         File destFile = new File(destinationPath);
         try (FileOutputStream fos = new FileOutputStream(destFile);
              FileInputStream fis = new FileInputStream(sourceFile)) {
