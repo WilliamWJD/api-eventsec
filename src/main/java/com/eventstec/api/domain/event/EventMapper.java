@@ -13,7 +13,8 @@ public class EventMapper {
         newEvent.setDescription(eventRequestDTO.description());
         newEvent.setEventUrl(eventRequestDTO.eventUrl());
         newEvent.setDate(new Date(eventRequestDTO.date()));
-        newEvent.setImgUrl(imgUrl);
+        newEvent.setImageUrl(imgUrl);
+        newEvent.setRemote(eventRequestDTO.remote());
 
         return newEvent;
     }

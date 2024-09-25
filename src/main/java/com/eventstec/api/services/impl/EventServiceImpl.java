@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.eventstec.api.domain.event.Event;
 import com.eventstec.api.domain.event.EventMapper;
 import com.eventstec.api.domain.event.EventRequestDTO;
+import com.eventstec.api.repositories.EventRepository;
 import com.eventstec.api.services.EventService;
 import com.eventstec.api.utils.AWSUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,20 +20,23 @@ import java.util.UUID;
 @Service
 public class EventServiceImpl implements EventService {
     private final EventMapper eventMapper;
+    private final EventRepository eventRepository;
     @Value("${aws.bucket.name}")
     private String bucketName;
-    public EventServiceImpl(final EventMapper eventMapper) {
+    public EventServiceImpl(final EventMapper eventMapper, final EventRepository eventRepository) {
         this.eventMapper = eventMapper;
+        this.eventRepository = eventRepository;
     }
     @Override
     public Event createEvent(EventRequestDTO data) {
         String imgUrl = null;
 
         if(data.image() != null){
-            imgUrl = this.uploadImg(data.image());
+//            imgUrl = this.uploadImg(data.image());
+            imgUrl = "c://arquivos/s3images";
         }
 
-        return eventMapper.eventRequestDtoForEventEntity(data, imgUrl);
+        return eventRepository.save(eventMapper.eventRequestDtoForEventEntity(data, imgUrl));
     }
 
     private String uploadImg(MultipartFile multipartFile) {
