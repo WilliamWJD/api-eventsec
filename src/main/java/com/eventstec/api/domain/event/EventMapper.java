@@ -24,13 +24,13 @@ public class EventMapper {
         return new EventResponseDTO(
                 event.getId(),
                 event.getTitle(),
-                event.getEventUrl(),
-                event.getDate(),
                 event.getDescription(),
-                event.getImageUrl(),
+                event.getDate(),
+                event.getAddress() != null ? event.getAddress().getCity() : "",
+                event.getAddress() != null ? event.getAddress().getUf() : "",
                 event.getRemote(),
-                "",
-                ""
+                event.getEventUrl(),
+                event.getImageUrl()
         );
     }
 }
